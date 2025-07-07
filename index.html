@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q4pay Payment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="payment-container">
+        <form id="paymentForm">
+            
+            <img src="logo.png" alt="Q4pay Logo" class="logo">
+
+            <div class="input-group">
+                <label for="userID">User ID</label>
+                <input type="text" id="userID" placeholder="Enter your User ID" required />
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@example.com" required />
+            </div>
+            
+            <div class="input-group">
+                <label for="amount">Amount (in NGN)</label>
+                <input type="number" id="amount" placeholder="e.g., 500" required />
+            </div>
+            
+            <button type="button" onclick="payWithSquad()">Pay Now</button>
+        </form>
+    </div>
+
+    <script src="https://checkout.squadco.com/widget/squad.min.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
