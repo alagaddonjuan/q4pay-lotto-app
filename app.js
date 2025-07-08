@@ -32,7 +32,7 @@ function payWithSquad() {
 
 async function verifyPaymentOnServer(transaction_ref) {
     try {
-        const res = await fetch('http://localhost:3000/verify-payment', {
+        const res = await fetch('https://q4pay-lotto-app.onrender.com/verify-payment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

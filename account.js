@@ -10,7 +10,7 @@ window.onload = function() {
 async function fetchAccountDetails(userID) {
     try {
         // Call the new backend endpoint we created
-        const response = await fetch(`http://localhost:3000/get-user-account/${userID}`);
+        const response = await fetch(`https://q4pay-lotto-app.onrender.com/get-user-account/${userID}`);
         
         if (!response.ok) {
             // Handle cases where the user account wasn't found
