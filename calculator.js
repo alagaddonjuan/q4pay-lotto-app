@@ -1,66 +1,65 @@
 // --- Element References ---
 const amountInput = document.getElementById('amount-input');
 const settlementOutput = document.getElementById('settlement-output');
-const squadFeeOutput = document.getElementById('squad-fee-output');
-const customFeeOutput = document.getElementById('custom-fee-output');
+const q4payFeeOutput = document.getElementById('q4pay-fee-output');
 const tabButtons = document.querySelectorAll('.tab-button');
+const calculatorSection = document.getElementById('calculator-section');
+const tabContents = document.querySelectorAll('.tab-content');
 
 // --- Configuration Constants ---
-// **** EDIT YOUR CUSTOM FEE PERCENTAGE HERE ****
-const YOUR_CUSTOM_FEE_PERCENTAGE = 0.5; // Example: 0.5%
-
-const SQUAD_FEES = {
-    paymentLink: { percentage: 1.45, cap: 1500 },
-    virtualAccount: { percentage: 0.50, cap: 1000 }
+const Q4PAY_FEES = {
+    paymentLink: { percentage: 1.45, cap: 1500 }, // Updated
+    virtualAccount: { percentage: 0.45, cap: 1000 }, // Updated
+    transfer: { text: "₦10 - ₦50" }
 };
 let activeTab = 'paymentLink';
 
 // --- Functions ---
 function calculateCharges() {
-    const amount = parseFloat(amountInput.value) || 0;
+    if (activeTab === 'transfer') return;
 
+    const amount = parseFloat(amountInput.value) || 0;
     if (amount <= 0) {
         resetOutputs();
         return;
     }
 
-    // Calculate Squad Fee based on the active tab
-    const feeConfig = SQUAD_FEES[activeTab];
-    let squadFee = amount * (feeConfig.percentage / 100);
-    if (squadFee > feeConfig.cap) {
-        squadFee = feeConfig.cap;
+    const feeConfig = Q4PAY_FEES[activeTab];
+    let q4payFee = amount * (feeConfig.percentage / 100);
+    if (q4payFee > feeConfig.cap) {
+        q4payFee = feeConfig.cap;
     }
 
-    // Calculate your custom fee using the constant
-    const customFee = amount * (YOUR_CUSTOM_FEE_PERCENTAGE / 100);
+    // Settlement is now just the amount minus the Q4Pay fee
+    const settlement = amount - q4payFee;
 
-    // Calculate final settlement
-    const totalFees = squadFee + customFee;
-    const settlement = amount - totalFees;
-
-    // Update the display
-    squadFeeOutput.textContent = squadFee.toFixed(2);
-    customFeeOutput.textContent = customFee.toFixed(2);
+    q4payFeeOutput.textContent = q4payFee.toFixed(2);
     settlementOutput.textContent = settlement.toFixed(2);
 }
 
 function switchTab(tabName) {
     activeTab = tabName;
     tabButtons.forEach(button => {
-        const buttonIdentifier = button.getAttribute('onclick').includes('paymentLink') ? 'paymentLink' : 'virtualAccount';
-        button.classList.toggle('active', buttonIdentifier === tabName);
+        button.classList.toggle('active', button.getAttribute('onclick').includes(tabName));
     });
-    calculateCharges();
+    tabContents.forEach(content => {
+        content.style.display = content.id.includes(tabName) ? 'block' : 'none';
+    });
+    
+    if (tabName === 'transfer') {
+        calculatorSection.style.display = 'none';
+    } else {
+        calculatorSection.style.display = 'block';
+        resetOutputs();
+        calculateCharges();
+    }
 }
 
 function resetOutputs() {
     settlementOutput.textContent = '0.00';
-    squadFeeOutput.textContent = '0.00';
-    customFeeOutput.textContent = '0.00';
+    q4payFeeOutput.textContent = '0.00';
 }
 
-// --- Event Listeners ---
-amountInput.addEventListener('input', calculateCharges);
-
-// Initialize the view for the default active tab
+// --- Initial Setup ---
 window.onload = () => switchTab('paymentLink');
+amountInput.addEventListener('input', calculateCharges);

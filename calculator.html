@@ -13,26 +13,51 @@
         <div class="tab-container">
             <button class="tab-button active" onclick="switchTab('paymentLink')">Payment Link</button>
             <button class="tab-button" onclick="switchTab('virtualAccount')">Virtual Account</button>
+            <button class="tab-button" onclick="switchTab('transfer')">Transfer Service</button>
         </div>
 
-        <div class="calculator-box">
-            <label>IF CUSTOMER PAYS</label>
-            <input type="number" id="amount-input" placeholder="Enter amount">
+        <div id="paymentLink-content" class="tab-content">
+            <p>1.45% per transaction</p>
+            <ul>
+                <li>One-time setup cost.</li>
+                <li>Accept Mastercard, Visa, USSD, and bank transfer.</li>
+                <li>Fees are capped at NGN 1,500.</li>
+            </ul>
         </div>
 
-        <hr class="separator">
+        <div id="virtualAccount-content" class="tab-content" style="display: none;">
+            <p>0.45% per transaction</p>
+            <ul>
+                <li>One-time setup cost.</li>
+                <li>Receive payments to a virtual account.</li>
+                <li>Fees per transaction capped at NGN 1,000.</li>
+            </ul>
+        </div>
 
-        <div class="result-row">
-            <span>Squad Fee:</span>
-            <span id="squad-fee-output">0.00</span>
+        <div id="transfer-content" class="tab-content" style="display: none;">
+            <p>From ₦10 - ₦50 per transaction</p>
+            <ul>
+                <li>One-time setup cost.</li>
+                <li>Make transfers to any financial institution in Nigeria.</li>
+            </ul>
         </div>
-        <div class="result-row">
-            <span>Your Fee (<span id="your-fee-percentage"></span>%):</span>
-            <span id="custom-fee-output">0.00</span>
-        </div>
-        <div class="result-row total">
-            <span>You Will Be Settled:</span>
-            <span id="settlement-output">0.00</span>
+
+        <div id="calculator-section">
+            <div class="calculator-box">
+                <label>IF CUSTOMER PAYS</label>
+                <input type="number" id="amount-input" placeholder="Enter amount">
+            </div>
+
+            <hr class="separator">
+
+            <div class="result-row">
+                <span>Q4Pay Fee:</span>
+                <span id="q4pay-fee-output">0.00</span>
+            </div>
+            <div class="result-row total">
+                <span>You Will Be Settled:</span>
+                <span id="settlement-output">0.00</span>
+            </div>
         </div>
 
         <div class="link-container">

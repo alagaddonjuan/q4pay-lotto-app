@@ -172,3 +172,34 @@ button:hover {
     margin-top: 10px;
     padding-top: 15px;
 }
+
+/* ===== CALCULATOR CONTENT STYLES ===== */
+
+.tab-content {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-top: none;
+    padding: 5px 20px 15px 20px;
+    margin-top: -20px; /* Pulls content up to the tab line */
+    margin-bottom: 25px;
+    border-radius: 0 0 8px 8px; /* Rounds the bottom corners */
+}
+
+.tab-content p {
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.tab-content ul {
+    list-style-type: '✓  '; /* Adds a checkmark bullet */
+    padding-left: 20px;
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+}
+
+.tab-content ul li {
+    padding-bottom: 5px;
+}
