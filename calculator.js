@@ -1,32 +1,68 @@
-// Get the elements from the HTML
+// --- Element References ---
 const amountInput = document.getElementById('amount-input');
+const customFeeInput = document.getElementById('custom-fee-input');
 const settlementOutput = document.getElementById('settlement-output');
-const feeOutput = document.getElementById('fee-output');
+const squadFeeOutput = document.getElementById('squad-fee-output');
+const customFeeOutput = document.getElementById('custom-fee-output');
+const tabButtons = document.querySelectorAll('.tab-button');
 
-// Define your fee percentage here
-const FEE_PERCENTAGE = 1.20;
+// --- State and Constants ---
+let activeTab = 'paymentLink';
+const SQUAD_FEES = {
+    paymentLink: { percentage: 1.20, cap: 1500 },
+    virtualAccount: { percentage: 0.25, cap: 1000 }
+};
 
-// This function will run every time the user types in the input box
+// --- Functions ---
 function calculateCharges() {
-    const amount = parseFloat(amountInput.value);
+    const amount = parseFloat(amountInput.value) || 0;
+    const customFeePercent = parseFloat(customFeeInput.value) || 0;
 
-    // Check if the input is a valid number and greater than zero
-    if (isNaN(amount) || amount <= 0) {
-        settlementOutput.textContent = '0.00';
-        feeOutput.textContent = '0.00';
+    if (amount <= 0) {
+        resetOutputs();
         return;
     }
 
-    // Calculate the fee
-    const fee = amount * (FEE_PERCENTAGE / 100);
+    // Calculate Squad Fee based on the active tab
+    const feeConfig = SQUAD_FEES[activeTab];
+    let squadFee = amount * (feeConfig.percentage / 100);
+    // Apply the fee cap
+    if (squadFee > feeConfig.cap) {
+        squadFee = feeConfig.cap;
+    }
 
-    // Calculate the settlement amount
-    const settlement = amount - fee;
+    // Calculate your custom fee
+    const customFee = amount * (customFeePercent / 100);
 
-    // Display the results, formatted to 2 decimal places
+    // Calculate final settlement
+    const totalFees = squadFee + customFee;
+    const settlement = amount - totalFees;
+
+    // Update the display
+    squadFeeOutput.textContent = squadFee.toFixed(2);
+    customFeeOutput.textContent = customFee.toFixed(2);
     settlementOutput.textContent = settlement.toFixed(2);
-    feeOutput.textContent = fee.toFixed(2);
 }
 
-// Add an event listener to the input field
+function switchTab(tabName) {
+    activeTab = tabName;
+    // Update active class on buttons
+    tabButtons.forEach(button => {
+        button.classList.toggle('active', button.textContent.toLowerCase().includes(tabName.toLowerCase()));
+    });
+    // Recalculate fees when tab switches
+    calculateCharges();
+}
+
+function resetOutputs() {
+    settlementOutput.textContent = '0.00';
+    squadFeeOutput.textContent = '0.00';
+    customFeeOutput.textContent = '0.00';
+}
+
+// --- Event Listeners ---
 amountInput.addEventListener('input', calculateCharges);
+customFeeInput.addEventListener('input', calculateCharges);
+
+// Initialize the view for the default active tab
+window.onload = () => switchTab('paymentLink');

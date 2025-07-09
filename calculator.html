@@ -7,24 +7,37 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="payment-container">
         <h2>Pricing Calculator</h2>
-        <p>See how much you'll be settled for any amount.</p>
+
+        <div class="tab-container">
+            <button class="tab-button active" onclick="switchTab('paymentLink')">Payment Link</button>
+            <button class="tab-button" onclick="switchTab('virtualAccount')">Virtual Account</button>
+        </div>
 
         <div class="calculator-box">
-            <label>IF YOU CHARGE</label>
+            <label>IF CUSTOMER PAYS</label>
             <input type="number" id="amount-input" placeholder="Enter amount">
         </div>
 
-        <div class="calculator-box result-box">
-            <label>WE WILL SETTLE YOU</label>
-            <span id="settlement-output">0.00</span>
+        <div class="calculator-box">
+            <label>YOUR CUSTOM FEE (%)</label>
+            <input type="number" id="custom-fee-input" placeholder="e.g., 0.5">
         </div>
 
-        <div class="calculator-box result-box">
-            <label>Q4PAY FEES (1.20%)</label>
-            <span id="fee-output">0.00</span>
+        <hr class="separator">
+
+        <div class="result-row">
+            <span>Squad Fee:</span>
+            <span id="squad-fee-output">0.00</span>
+        </div>
+        <div class="result-row">
+            <span>Your Fee:</span>
+            <span id="custom-fee-output">0.00</span>
+        </div>
+        <div class="result-row total">
+            <span>You Will Be Settled:</span>
+            <span id="settlement-output">0.00</span>
         </div>
 
         <div class="link-container">
@@ -33,6 +46,5 @@
     </div>
 
     <script src="calculator.js"></script>
-
 </body>
 </html>
