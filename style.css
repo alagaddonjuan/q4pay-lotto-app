@@ -73,3 +73,57 @@ button:hover {
     width: 150px; /* Adjust the width as needed */
     height: auto; /* Maintains the aspect ratio */
 }
+
+.link-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.link-container a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.link-container a:hover {
+    text-decoration: underline;
+}
+
+/* Styles for the calculator page */
+.calculator-box {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.calculator-box label {
+    font-size: 12px;
+    color: #6c757d;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.calculator-box input, .calculator-box span {
+    font-size: 24px;
+    font-weight: 500;
+    color: #212529;
+    width: 100%;
+    display: block;
+}
+
+.calculator-box input {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.calculator-box input:focus {
+    outline: none;
+}
+
+.result-box {
+    background-color: transparent;
+}
