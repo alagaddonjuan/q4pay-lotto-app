@@ -10,8 +10,8 @@ const tabButtons = document.querySelectorAll('.tab-button');
 const YOUR_CUSTOM_FEE_PERCENTAGE = 0.5; // Example: 0.5%
 
 const SQUAD_FEES = {
-    paymentLink: { percentage: 1.20, cap: 1500 },
-    virtualAccount: { percentage: 0.25, cap: 1000 }
+    paymentLink: { percentage: 1.45, cap: 1500 },
+    virtualAccount: { percentage: 0.50, cap: 1000 }
 };
 let activeTab = 'paymentLink';
 
